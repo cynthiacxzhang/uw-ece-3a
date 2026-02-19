@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(find:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git diff-tree:*)",
+      "Read(//Users/Cynthia/uw-ece-3a/**)",
+      "Bash(while read hash)",
+      "Bash(do git cat-file -s \"$hash\")",
+      "Bash(done)",
+      "Bash(git config:*)"
     ]
   }
 }
