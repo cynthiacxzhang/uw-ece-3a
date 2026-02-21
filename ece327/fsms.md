@@ -6,40 +6,40 @@ module fsm (
     output logic out
 );
 
-    // 1. State encoding
-    typedef enum logic [1:0] {
-        IDLE = 2'b00,
-        S1   = 2'b01,
-        S2   = 2'b10
-    } state_t;
+// 1. State encoding
+typedef enum logic [1:0] {
+    IDLE = 2'b00,
+    S1   = 2'b01,
+    S2   = 2'b10
+} state_t;
 
-    state_t state, next_state;
+state_t state, next_state;
 
-    // 2. State register — sequential
-    always_ff @(posedge clk) begin
-        if (rst) state <= IDLE;
-        else     state <= next_state;
-    end
+// 2. State register — sequential
+always_ff @(posedge clk) begin
+    if (rst) state <= IDLE;
+    else     state <= next_state;
+end
 
-    // 3. Next-state decoder — combinational
-    always_comb begin
-        case (state)
-            IDLE: next_state = in ? S1   : IDLE;
-            S1:   next_state = in ? S2   : IDLE;
-            S2:   next_state = in ? S2   : IDLE;
-            default: next_state = IDLE;
-        endcase
-    end
+// 3. Next-state decoder — combinational
+always_comb begin
+    case (state)
+        IDLE: next_state = in ? S1   : IDLE;
+        S1:   next_state = in ? S2   : IDLE;
+        S2:   next_state = in ? S2   : IDLE;
+        default: next_state = IDLE;
+    endcase
+end
 
-    // 4. Output decoder — combinational (Moore)
-    always_comb begin
-        case (state)
-            IDLE: out = 1'b0;
-            S1:   out = 1'b0;
-            S2:   out = 1'b1;
-            default: out = 1'b0;
-        endcase
-    end
+// 4. Output decoder — combinational (Moore)
+always_comb begin
+    case (state)
+        IDLE: out = 1'b0;
+        S1:   out = 1'b0;
+        S2:   out = 1'b1;
+        default: out = 1'b0;
+    endcase
+end
 
 endmodule
 ```
